@@ -15,3 +15,8 @@ docker run -d --name chinook-db --network chinook-net --label "$LABEL" \
   -e POSTGRES_DB=chinook \
   postgres:latest
   
+# await until the db logs show it's accepting tcp connections 
+  echo "Waiting for database..."
+until docker logs chinook-db 2>&1 | grep -q 'listening on IPv4 address'; do
+  sleep 2
+done

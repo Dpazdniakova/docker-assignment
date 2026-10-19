@@ -1,6 +1,6 @@
 cockroachdb:
-  host: [DATABASE_DOMAIN_NAME]
+  host: chinook-db       
   port: 5432
-  database: [DATABASE_NAME]
-  username: [DATABASE_USERNAME]
-  ssl_mode: disable
+  database: chinook
+  username: user
+  sslmode: disable

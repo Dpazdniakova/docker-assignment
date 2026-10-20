@@ -23,3 +23,9 @@ until docker logs chinook-db 2>&1 | grep -q 'listening on IPv4 address'; do
   sleep 2
 done
 
+# Start up the seeder container in the foreground , db file bind mounted as read only, --rm ensures the seeder self removes after its done
+docker run --rm --name chinook-seeder --network chinook-net --label "$LABEL" \
+  -v "$(pwd)/Chinook.db:/app/Chinook.db:ro" \
+  -e SQLITE_FILE=/app/Chinook.db \
+  -e DATABASE_URL=postgres://chinook_user:chinook_pass@chinook-db:5432/chinook \
+  chinook-seeder

@@ -9,3 +9,6 @@ docker rm -f $(docker ps -aq --filter "ancestor=mcp/cockroachdb")
 
 # Remove the labelled network 
 docker network rm $(docker network ls -q --filter "label=$LABEL")
+
+# Remove the labelled volume
+docker volume rm $(docker volume ls -q --filter "label=$LABEL")

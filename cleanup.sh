@@ -1,7 +1,7 @@
 #!/bin/sh
 LABEL="project=chinook-agent" # same label
 
-# Remove labelled containers   
+# Remove labelled containers  : mcp-gateway, chinook-db 
 docker rm -f $(docker ps -aq --filter "label=$LABEL")
 
 # Ensure the mcp server is gone too before starting to remove the network, filter by ancestor instead of label as its not applicable.
@@ -12,3 +12,6 @@ docker network rm $(docker network ls -q --filter "label=$LABEL")
 
 # Remove the labelled volume
 docker volume rm $(docker volume ls -q --filter "label=$LABEL")
+
+# Remove the labelled images : seeder, agent
+docker rmi -f $(docker image ls -q --filter "label=$LABEL")

@@ -42,3 +42,9 @@ docker run -d --name mcp-gateway --network chinook-net --label "$LABEL" \
   --servers=cockroachdb \
   --tools=execute_query \
   --config=/mcp_config.yaml
+
+# Await the gateway
+echo "Waiting for MCP gateway..."
+until docker logs mcp-gateway 2>&1 | grep -q 'Start sse server on port 8811'; do
+  sleep 2
+done

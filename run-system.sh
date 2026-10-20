@@ -30,7 +30,7 @@ docker run --rm --name chinook-seeder --network chinook-net --label "$LABEL" \
   -e DATABASE_URL=postgres://chinook_user:chinook_pass@chinook-db:5432/chinook \
   chinook-seeder
 
-# Starting  the mcp-gateway in the background, which spins up the mcp server on demand
+# Starting  the mcp-gateway in the background, which spins up the mcp server 
 docker run -d --name mcp-gateway --network chinook-net --label "$LABEL" \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v "$(pwd)/mcp_config.yaml:/mcp_config.yaml:ro" \

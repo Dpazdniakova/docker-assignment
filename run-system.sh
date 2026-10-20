@@ -48,3 +48,13 @@ echo "Waiting for MCP gateway..."
 until docker logs mcp-gateway 2>&1 | grep -q 'Start sse server on port 8811'; do
   sleep 2
 done
+
+# Start the one shot agent in the foreground 
+docker run --rm --name agent --network chinook-net --label "$LABEL" \
+  -v "$(pwd)/secret.ollama-api-key:/run/secrets/openai-api-key:ro" \
+  -e MCP_SERVER_URL=http://mcp-gateway:8811/sse \
+  -e DATABASE_DIALECT=PostgreSQL \
+  -e QUESTION="What are the top 3 albums by sales?" \
+  -e OPENAI_API_BASE_URL=https://ollama.com/v1 \
+  -e OPENAI_MODEL_NAME=gpt-oss:20b \
+  agent
